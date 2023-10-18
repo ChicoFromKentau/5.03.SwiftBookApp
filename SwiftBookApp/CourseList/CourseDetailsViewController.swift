@@ -8,22 +8,36 @@
 import UIKit
 
 class CourseDetailsViewController: UIViewController {
-
+    @IBOutlet private var courseNameLabel: UILabel!
+    @IBOutlet private var courseImage: UIImageView!
+    @IBOutlet private var numberOfLessonsLabel: UILabel!
+    @IBOutlet private var numberOfTestsLabel: UILabel!
+    @IBOutlet private var favoriteButton: UIButton!
+    
+    var viewModel: CourseDetailsViewModelProtocol!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        setupUI()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func toggleFavorite() {
+        viewModel.favoriteButtonPressed()
     }
-    */
-
+    
+    private func setupUI() {
+        setStatusForFavoriteButton(viewModel.isFavorite)
+        
+        viewModel.viewModelDidChange = { [unowned self] viewModel in
+            setStatusForFavoriteButton(viewModel.isFavorite)
+        }
+        courseNameLabel.text = viewModel.courseName
+        numberOfLessonsLabel.text = viewModel.numberOfLessons
+        numberOfTestsLabel.text = viewModel.numberOfTests
+        courseImage.image = UIImage(data: viewModel.imageData ?? Data())
+    }
+    
+    private func setStatusForFavoriteButton(_ status: Bool) {
+        favoriteButton.tintColor = status ? .red : .gray
+    }
 }
