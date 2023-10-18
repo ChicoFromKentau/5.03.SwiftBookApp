@@ -8,14 +8,13 @@
 import Foundation
 
 protocol CourseCellViewModelProtocol {
-    var courseName: String { get }
+    var courserName: String { get }
     var imageData: Data? { get }
-    
     init(course: Course)
 }
 
 class CourseCellViewModel: CourseCellViewModelProtocol {
-    var courseName: String {
+    var courserName: String {
         course.name
     }
     

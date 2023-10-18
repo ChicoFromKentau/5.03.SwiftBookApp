@@ -11,7 +11,7 @@ class CourseCell: UITableViewCell {
     var viewModel: CourseCellViewModelProtocol! {
         didSet {
             var content = defaultContentConfiguration()
-            content.text = viewModel.courseName
+            content.text = viewModel.courserName
             guard let imageData = viewModel.imageData else { return }
             content.image = UIImage(data: imageData)
             contentConfiguration = content

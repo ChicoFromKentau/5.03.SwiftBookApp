@@ -15,7 +15,7 @@ protocol CourseListViewModelProtocol {
 }
 
 class CourseListViewModel: CourseListViewModelProtocol {
-    private var courses: [Course] = []
+    var courses: [Course] = []
     
     func fetchCourses(completion: @escaping () -> Void) {
         NetworkManager.shared.fetchData { [unowned self] courses in
